@@ -10,10 +10,10 @@ export const registerUser = async (username, password) => {
   const minLength = 7;
 
   if (username.length < maxLength) {
-    throw new Error(`Username must be at least ${maxLength} characters long.`);
+    alert(`Username must be at least ${maxLength} characters long.`);
   }
   if (password.length < minLength) {
-    throw new Error(`Password must be at least ${minLength} characters long.`);
+    alert(`Password must be at least ${minLength} characters long.`);
   }
   let result;
 
@@ -31,6 +31,7 @@ export const registerUser = async (username, password) => {
       }),
     });
     result = await response.json();
+    localStorage.setItem('token', result.result.token)
     console.log(result);
   } catch (err) {
     throw new Error("Register User API is down");
@@ -44,10 +45,58 @@ export const registerUser = async (username, password) => {
   return result.data;
 };
 
-registerUser("blahblah", "blahblah");
+// registerUser("blahblah", "blahblah");
 
 // Activities Endpoints
 
 // Routines Endpoints
 
-//Routine_Activities Endpoints
+export const fetchRoutines = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/routines`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const result = await response.json();
+    console.log("RESULT:", result);
+    return result
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export const fetchActivities = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/activities`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const result = await response.json();
+
+    console.log(result);
+    return result
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// export const fetchRoutinesWithActivity = async (activityId) => {
+//   try {
+//     const response = await fetch(`${BASE_URL}/activities/${activityId}/routines`, {
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     });
+//     const result = await response.json();
+//     console.log(result);
+//     return result
+//   } catch (err) {
+//     console.error(err);
+//   }
+// }
+
+// Routine_Activities Endpoints

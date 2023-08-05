@@ -1,0 +1,11 @@
+* {
+  box-sizing: border-box;
+  background-color: whitesmoke;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.loading-text {
+  color: black;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}

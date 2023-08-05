@@ -4,14 +4,20 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import {
   Navbar,
-  //   RenderAllRoutines,
   Routines,
+  Register,
+  Login,
+  MyRoutines,
+  Activities,
+  LoadingModal
 } from "./components";
 
 const App = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [routines, setRoutines] = useState([]);
+  const [activities, setActivities] = useState([]);
+  // const [routinesWithActivity, setRoutinesWithActivity] = useState([]);
   //   const [loggedIn, setLoggedIn] = useState(false);
   // Decide if we want to add routines/activities as useStates for global use here - Might make sense since using on multiple pages
 
@@ -44,17 +50,17 @@ const App = () => {
         <Navbar token={token} setToken={setToken} />
         {/* <SearchBar /> */}
         <Routes>
-          <Route path="/" element={<Routines setLoading={setLoading} />} />
-          {/* <Route
-          path="/Register" element=
-          {<Register setToken={setToken} setLoading={setLoading} />}
-          />
-          <Route path="/Search" element={<Search />} />
+          <Route path="/" element={<Routines routines={routines} setRoutines={setRoutines} loading={loading} setLoading={setLoading} />} />
           <Route
-            path="/Login"
+            path="/register" element=
+            {<Register setToken={setToken} setLoading={setLoading} />}
+          />
+          <Route path="/activities" element={<Activities activities={activities} setActivities={setActivities} loading={loading} setLoading={setLoading} />} />
+          <Route
+            path="/login"
             element={<Login setToken={setToken} setLoading={setLoading} />}
           />
-          <Route path="/Profile" element={<Profile />} /> */}
+          <Route path="/myroutines" element={<MyRoutines />} />
           {/* <Route
             path="/ViewPost/:postId"
             element={<ViewPost loading={loading} setLoading={setLoading} />}
@@ -68,7 +74,6 @@ const App = () => {
             element={<UpdatePost setLoading={setLoading} />}
           /> */}
         </Routes>
-        {loading ? <Loading /> : null}
       </div>
     </BrowserRouter>
   );
