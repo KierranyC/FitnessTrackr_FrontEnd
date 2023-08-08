@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { registerUser } from '../api';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Register = () => {
+const Register = ({ setToken }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
@@ -10,10 +10,16 @@ const Register = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+
+    if (!username || !password) {
+      return;
+    }
+
     await registerUser(username, password)
     const token = localStorage.getItem('token')
+    setToken(token)
     if (token) {
-      navigate('/login')
+      navigate('/myroutines')
     }
     else {
       console.log('ERROR NO TOKEN')

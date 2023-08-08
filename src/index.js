@@ -14,8 +14,7 @@ import {
 
 const App = () => {
   const [loading, setLoading] = useState(true);
-  // const [token, setToken] = useState(localStorage.getItem("token") || "");
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [routines, setRoutines] = useState([]);
   const [activities, setActivities] = useState([]);
   const [currentUser, setCurrentUser] = useState('');
@@ -37,15 +36,15 @@ const App = () => {
   //       setLoggedIn(true)
   //     }
   //   }, [token])
-  const setAndStoreToken = (userToken) => {
-    localStorage.setItem("token", userToken);
-    setToken(userToken);
-    // if (userToken) {
-    //   setLoggedIn(true);
-    // } else {
-    //   setLoggedIn(false);
-    // }
-  };
+  // const setAndStoreToken = (userToken) => {
+  //   localStorage.setItem("token", userToken);
+  //   setToken(userToken);
+  // if (userToken) {
+  //   setLoggedIn(true);
+  // } else {
+  //   setLoggedIn(false);
+  // }
+  // };
 
   return (
     <BrowserRouter>
@@ -56,15 +55,16 @@ const App = () => {
           <Route path="/" element={<Routines routines={routines} setRoutines={setRoutines} loading={loading} setLoading={setLoading} />} />
           <Route
             path="/register" element=
-            {<Register setToken={setAndStoreToken} setLoading={setLoading} />}
+            {<Register setToken={setToken} setLoading={setLoading} />}
           />
-          <Route path="/activities" element={<Activities activities={activities} setActivities={setActivities} loading={loading} setLoading={setLoading} />} />
+          <Route path="/activities" element={<Activities activities={activities} setActivities={setActivities} loading={loading} setLoading={setLoading}
+            token={token} />} />
           <Route
             path="/login"
-            element={<Login setToken={setAndStoreToken} setLoading={setLoading} />}
+            element={<Login setToken={setToken} setLoading={setLoading} />}
           />
           <Route path="/myroutines" element={<MyRoutines currentUser={currentUser} setCurrentUser={setCurrentUser} loading={loading} setLoading={setLoading}
-            userRoutines={userRoutines} setUserRoutines={setUserRoutines} />} />
+            userRoutines={userRoutines} setUserRoutines={setUserRoutines} token={token} />} />
           {/* <Route
             path="/ViewPost/:postId"
             element={<ViewPost loading={loading} setLoading={setLoading} />}

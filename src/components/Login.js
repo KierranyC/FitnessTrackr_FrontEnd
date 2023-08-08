@@ -1,15 +1,24 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginUser } from '../api';
 
 const Login = ({ setToken }) => {
   const [username, setUserame] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
 
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    await userLogin(username, password)
+    await loginUser(username, password)
     const token = localStorage.getItem('token')
+    setToken(token)
+    if (token) {
+      navigate('/myroutines')
+    }
+    else {
+      alert('INCORRENT LOGIN DETAILS')
+    }
   }
 
   return (
