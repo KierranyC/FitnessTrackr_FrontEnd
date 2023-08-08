@@ -64,7 +64,7 @@ const App = () => {
             element={<Login setToken={setToken} setLoading={setLoading} />}
           />
           <Route path="/myroutines" element={<MyRoutines currentUser={currentUser} setCurrentUser={setCurrentUser} loading={loading} setLoading={setLoading}
-            userRoutines={userRoutines} setUserRoutines={setUserRoutines} token={token} />} />
+            userRoutines={userRoutines} setUserRoutines={setUserRoutines} token={token} activities={activities} setActivities={setActivities} />} />
           {/* <Route
             path="/ViewPost/:postId"
             element={<ViewPost loading={loading} setLoading={setLoading} />}

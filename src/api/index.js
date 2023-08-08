@@ -269,28 +269,29 @@ export const deleteRoutine = async (token, routineId) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    if (response.ok) {
-      const result = await response.json();
-      console.log(result);
-      return result.data;
-    } else {
-      throw new Error("Failed to delete post");
-    }
+    const result = await response.json();
+    console.log(result);
+    return result;
   } catch (error) {
     console.error(error);
   }
 };
 // POST - routines/:routineId/activities
-export const attachActivityToRoutine = async (activityId, token) => {
+export const attachActivityToRoutine = async (token, routineId, activityId, count, duration) => {
   try {
     const response = await fetch(
-      `${BASE_URL}/activities/${activityId}/routines`,
+      `${BASE_URL}/routines/${routineId}/activities`,
       {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
           'Authorization': `Bearer ${token}`,
         },
+        body: JSON.stringify({
+          activityId,
+          count,
+          duration
+        })
       }
     );
     const result = await response.json();
