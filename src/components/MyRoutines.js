@@ -30,19 +30,18 @@ const MyRoutines = ({ currentUser, setCurrentUser, loading, setLoading, token, u
     await createNewRoutine(name, goal, isPublic, token)
   }
 
-  const attachActivity = async (event, routine, activity) => {
-    console.log(activity)
+  const attachActivity = async (event, routine) => {
     event.preventDefault()
     await attachActivityToRoutine(token, routine.id, activity, count, duration)
   }
 
-  // const handleDelete = async (event, routine) => {
-  //   event.preventDefault()
-  //   await deleteRoutine(token, routine.id)
-  //   const updatedRoutines = userRoutines.filter(userRoutine =>
-  //     userRoutine.id !== routine.id)
-  //   setUserRoutines(updatedRoutines)
-  // }
+  const handleDelete = async (event, routine) => {
+    event.preventDefault()
+    await deleteRoutine(token, routine.id)
+    const updatedRoutines = userRoutines.filter(userRoutine =>
+      userRoutine.id !== routine.id)
+    setUserRoutines(updatedRoutines)
+  }
 
   const toggleNewRoutineForm = () => {
     setShowNewRoutineForm(!showNewRoutineForm)
@@ -77,47 +76,43 @@ const MyRoutines = ({ currentUser, setCurrentUser, loading, setLoading, token, u
           </form>
         )}
         {userRoutines.map(routine =>
-          <>
-            <div key={routine.id} value={routine}>
-              <h2>ROUTINE</h2>
-              <div>Creator: {routine.creatorName}</div>
-              <div>Name: {routine.name}</div>
-              <div>Goal: {routine.goal}</div>
-              <h3>Routine Activities</h3>
-              {routine.activities.map(activity =>
-                <div key={activity.id} value={activity}>
-                  <h3>ACTIVITY</h3>
-                  <div>Name: {activity.name}</div>
-                  <div>Description: {activity.description}</div>
-                  <div>Duration: {activity.duration}</div>
-                  <div>Count: {activity.count}</div>
-                </div>
-              )}
-              <form onSubmit={(event) => attachActivity(event, routine, activity)}>
-                <select
-                  name="activity"
-                  id="select-activity"
-                  value={activity ? activity : ''}
-                  onChange={(event) => {
-                    const selectedActivity = activityList.find(act => act.id === event.target.value)
-                    setActivity(selectedActivity)
-                  }}>
-                  <option value="any">Any</option>
-                  {activityList.map((activity) => (<option key={activity.id} value={activity.id}>{activity.name}</option>))}
-                </select>
-                <label>
-                  Count:
-                  <input type="number" value={count} onChange={(event) => setCount(event.target.value)} />
-                </label>
-                <label>
-                  Duration:
-                  <input type="number" value={duration} onChange={(event) => setDuration(event.target.value)} />
-                </label>
-                <button type='submit' className='attach-activity-button'>Add Activity</button>
-              </form>
-            </div>
-            <button type='button' className='routine-delete' onClick={handleDelete(routine)}>DELETE</button>
-          </>
+          <div key={routine.id} value={routine}>
+            <h2>ROUTINE</h2>
+            <div>Creator: {routine.creatorName}</div>
+            <div>Name: {routine.name}</div>
+            <div>Goal: {routine.goal}</div>
+            <h3>Routine Activities</h3>
+            {routine.activities.map(activity =>
+              <div key={activity.id} value={activity}>
+                <h3>ACTIVITY</h3>
+                <div>Name: {activity.name}</div>
+                <div>Description: {activity.description}</div>
+                <div>Duration: {activity.duration}</div>
+                <div>Count: {activity.count}</div>
+              </div>
+            )}
+
+            <select
+              name="activity"
+              id="select-activity"
+              value={activity ? activity : ''}
+              onChange={(event) => {
+                setActivity(event.target.value)
+              }}>
+              <option value="any">Any</option>
+              {activityList.map((activity) => (<option key={activity.id} value={activity.id}>{activity.name}</option>))}
+            </select>
+            <label>
+              Count:
+              <input type="number" value={count} onChange={(event) => setCount(event.target.value)} />
+            </label>
+            <label>
+              Duration:
+              <input type="number" value={duration} onChange={(event) => setDuration(event.target.value)} />
+            </label>
+            <button type='submit' onClick={(event) => attachActivity(event, routine)} className='attach-activity-button'>Add Activity</button>
+            <button type='button' className='routine-delete' onClick={event => handleDelete(event, routine)}>DELETE</button>
+          </div>
         )}
       </>
     )
