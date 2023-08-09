@@ -1,0 +1,71 @@
+* {
+  box-sizing: border-box;
+  font-family: "Times New Roman", Times, serif;
+}
+
+body {
+  margin: 0;
+  display: grid;
+}
+
+#mainNav {
+  background-color: rgb(198, 198, 198);
+  display: grid;
+  padding: 10px;
+}
+
+#navbartitle {
+  font-size: 50px;
+  display: flex;
+  grid-template-columns: 50% 50%;
+  justify-content: space-between;
+  padding: 3px;
+  flex-wrap: wrap;
+}
+
+#navbarlink {
+  display: flex;
+  gap: 20px;
+  background-color: rgb(198, 198, 198);
+  font-size: 20px;
+  justify-content: flex-end;
+  padding: 5px 10px;
+  align-items: end;
+}
+
+#activityheader {
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+}
+
+#activities {
+  backdrop-filter: blur(5px);
+  /* background: rgb(25, 25, 25); */
+  display: grid;
+  box-shadow: 3px 3px 10px -2px black;
+  border: 2px solid black;
+  max-width: 800px;
+  font-size: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+
+#activity-pop-out {
+  padding: 25px;
+  display: flex;
+  justify-content: center;
+}
+
+#activitytitle {
+  color: darkblue;
+}
+
+.loading-text {
+  color: black;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}

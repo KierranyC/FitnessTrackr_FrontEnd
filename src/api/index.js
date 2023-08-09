@@ -230,33 +230,27 @@ export const createNewRoutine = async (name, goal, isPublic, token) => {
   }
 };
 // PATCH - update a Routine
-export const updateRoutine = async (routineId, name, goal, isPublic) => {
-  let result;
+export const updateRoutine = async (token, routineId, name, goal, isPublic) => {
+
   try {
-    const response = await fetch(`${BASE_URL}/activities/${routineId}`, {
+    const response = await fetch(`${BASE_URL}/routines/${routineId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({
-        activity: {
-          name,
-          goal,
-          isPublic,
-        },
+        name,
+        goal,
+        isPublic
       }),
     });
-    result = await response.json();
+    const result = await response.json();
     console.log(result);
+    return result.data
   } catch (err) {
-    throw new Error("Failed to update Routine");
+    console.error(err)
   }
-  console.log(result);
-  if (!result.success) {
-    throw new Error(result.error.message);
-  }
-  return result.data;
 };
 // DELETE
 
@@ -266,7 +260,7 @@ export const deleteRoutine = async (token, routineId) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     });
     const result = await response.json();
@@ -304,11 +298,12 @@ export const attachActivityToRoutine = async (token, routineId, activityId, coun
 // Routine_Activities Endpoints
 // PATCH - update a Routine_activity
 export const updateRoutineActivity = async (
+  token,
   routineActivityId,
   count,
   duration
 ) => {
-  let result;
+
   try {
     const response = await fetch(
       `${BASE_URL}/routine_activities/${routineActivityId}`,
@@ -319,23 +314,17 @@ export const updateRoutineActivity = async (
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          routine_activity: {
-            count,
-            duration,
-          },
+          count,
+          duration
         }),
       }
     );
-    result = await response.json();
+    const result = await response.json();
     console.log(result);
+    return result.data
   } catch (err) {
-    throw new Error("Failed to update Routine Activity");
+    console.error(err)
   }
-  console.log(result);
-  if (!result.success) {
-    throw new Error(result.error.message);
-  }
-  return result.data;
 };
 // DELETE - Delete a routine_activity
 export const deleteRoutineActivity = async (token, routineActivityId) => {

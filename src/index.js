@@ -9,7 +9,8 @@ import {
   Login,
   MyRoutines,
   Activities,
-  LoadingModal
+  LoadingModal,
+  Footer
 } from "./components";
 
 const App = () => {
@@ -19,6 +20,8 @@ const App = () => {
   const [activities, setActivities] = useState([]);
   const [currentUser, setCurrentUser] = useState('');
   const [userRoutines, setUserRoutines] = useState([]);
+  // const [showModal, setShowModal] = useState(false)
+
   // const [routinesWithActivity, setRoutinesWithActivity] = useState([]);
   //   const [loggedIn, setLoggedIn] = useState(false);
   // Decide if we want to add routines/activities as useStates for global use here - Might make sense since using on multiple pages
@@ -50,7 +53,6 @@ const App = () => {
     <BrowserRouter>
       <div className="app">
         <Navbar token={token} setToken={setToken} />
-        {/* <SearchBar /> */}
         <Routes>
           <Route path="/" element={<Routines routines={routines} setRoutines={setRoutines} loading={loading} setLoading={setLoading} />} />
           <Route
@@ -64,20 +66,10 @@ const App = () => {
             element={<Login setToken={setToken} setLoading={setLoading} />}
           />
           <Route path="/myroutines" element={<MyRoutines currentUser={currentUser} setCurrentUser={setCurrentUser} loading={loading} setLoading={setLoading}
-            userRoutines={userRoutines} setUserRoutines={setUserRoutines} token={token} activities={activities} setActivities={setActivities} />} />
-          {/* <Route
-            path="/ViewPost/:postId"
-            element={<ViewPost loading={loading} setLoading={setLoading} />}
-          />
-          <Route
-            path="/MakePost"
-            element={<MakePost setLoading={setLoading} />}
-          />
-          <Route
-            path="/UpdatePost/:postId"
-            element={<UpdatePost setLoading={setLoading} />}
-          /> */}
+            userRoutines={userRoutines} setUserRoutines={setUserRoutines} token={token} activities={activities} setActivities={setActivities}
+            routines={routines} setRoutines={setRoutines} />} />
         </Routes>
+        <Footer />
       </div>
     </BrowserRouter>
   );

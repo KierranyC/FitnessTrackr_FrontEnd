@@ -41,6 +41,7 @@ const Routines = ({ token, routines, setRoutines, loading, setLoading, routinesW
         {routines.map(routine =>
           <div key={routine.id} value={routine}>
             <h2>ROUTINE</h2>
+            <h3>Creator: {routine.creatorName}</h3>
             <h3>Name: {routine.name}</h3>
             <h3>Goal: {routine.goal}</h3>
             <h3>Routine Activities</h3>
@@ -49,67 +50,15 @@ const Routines = ({ token, routines, setRoutines, loading, setLoading, routinesW
                 <h3>ACTIVITY</h3>
                 <h4>Activity Name: {activity.name}</h4>
                 <h4>Activity Description: {activity.description}</h4>
+                <h4>Count: {activity.count}</h4>
+                <h4>Duration: {activity.duration}</h4>
               </div>
             )}</div>
-            {/* <h3>{ }</h3> */}
           </div>
         )}
       </div>
     )
   }
-
-  //   //   const [posts, setPosts] = useState([]);
-
-  //   useEffect(() => {
-  //     const fetchRoutinesData = async () => {
-  //       setLoading(true);
-
-  //       try {
-  //         const postsData = await fetchRoutines(token);
-  //         setRoutines(postsData);
-  //       } catch (error) {
-  //         console.error(error);
-  //       } finally {
-  //         setLoading(false);
-  //       }
-  //     };
-
-  //     fetchPostsData();
-  //   }, []);
-
-  //   const handleViewPost = (postId) => {
-  //     navigate(`/ViewPost/${postId}`);
-  //   };
-
-  //   return (
-  //     <>
-  //       <div id="postheader">Posts</div>
-  //       {posts.map((post) => (
-  //         <div id="posts" key={post._id}>
-  //           <h2 id="posttitle">{post.title}</h2>
-  //           <p id="postusername">
-  //             Username: {post.author?.username || "Unknown User"}
-  //           </p>
-  //           <p>Description: {post.description}</p>
-  //           <p>Price: {post.price}</p>
-  //           <p>Location: {post.location}</p>
-  //           <p>
-  //             Will Deliver?:{" "}
-  //             {post.willDeliver ? "Will Deliver" : "Will NOT deliver"}
-  //           </p>
-  //           {/* {token && (
-  //             <CommonButtons
-  //               variant="contained"
-  //               sx={buttonStyles}
-  //               onClick={() => handleViewPost(post._id)}
-  //             >
-  //               View Post
-  //             </CommonButtons>
-  //           )} */}
-  //         </div>
-  //       ))}
-  //     </>
-  //   );
 };
 
 export default Routines;

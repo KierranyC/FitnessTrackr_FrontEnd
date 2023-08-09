@@ -1,53 +1,99 @@
 import * as React from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import {
-  // Button,
-  // TextField,
-  Link,
-} from "@mui/material";
-
+import { Link, Button } from "@mui/material";
 const Navbar = ({ token, setToken }) => {
   const navigate = useNavigate();
-
   const logout = () => {
     setToken("");
     localStorage.removeItem("token");
     // alert("You are now Logged out!");
     console.log("You are now Logged out!");
-
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/Login");
+      navigate("/login");
     }
   };
-
   return (
     <div id="mainNav">
       <div id="navbartitle">
         Fitness Tracker
         <div id="navbarlink">
-          <Link component={RouterLink} to="/" underline="hover">
+          <Link
+            component={RouterLink}
+            to="/"
+            underline="hover"
+            color="darkred"
+            sx={{
+              borderRadius: 1,
+              boxShadow: 10,
+              padding: 1,
+              border: 2,
+              borderColor: "black",
+              ":hover": {
+                bgcolor: "black",
+                color: "white",
+              },
+            }}
+          >
             Routines
           </Link>
           <Link
             component={RouterLink}
-            to="/Activities"
+            to="/activities"
             underline="hover"
-            color="red"
+            color="darkred"
+            sx={{
+              borderRadius: 1,
+              boxShadow: 10,
+              padding: 1,
+              border: 2,
+              borderColor: "black",
+              ":hover": {
+                bgcolor: "black",
+                color: "white",
+              },
+            }}
           >
             Activities
           </Link>
-          {token ? ( // remember to come back and finalize LINKs
-            <Link component={RouterLink} to="/MyRoutines" underline="hover">
+          {token ? (
+            <Link
+              component={RouterLink}
+              to="/myroutines"
+              underline="hover"
+              color="darkblue"
+              sx={{
+                borderRadius: 1,
+                boxShadow: 10,
+                padding: 1,
+                border: 2,
+                borderColor: "black",
+                ":hover": {
+                  bgcolor: "black",
+                  color: "white",
+                },
+              }}
+            >
               My Routines
             </Link>
           ) : null}
           {!token ? (
             <Link
               component={RouterLink}
-              to="/Login"
+              to="/login"
               underline="hover"
-              color="red"
+              color="darkblue"
+              sx={{
+                borderRadius: 1,
+                boxShadow: 10,
+                padding: 1,
+                border: 2,
+                borderColor: "black",
+                ":hover": {
+                  bgcolor: "black",
+                  color: "white",
+                },
+              }}
             >
               Login
             </Link>
@@ -55,22 +101,48 @@ const Navbar = ({ token, setToken }) => {
           {!token ? (
             <Link
               component={RouterLink}
-              to="/Register"
+              to="/register"
               underline="hover"
-              color="red"
+              color="darkblue"
+              sx={{
+                borderRadius: 1,
+                boxShadow: 10,
+                padding: 1,
+                border: 2,
+                borderColor: "black",
+                ":hover": {
+                  bgcolor: "black",
+                  color: "white",
+                },
+              }}
             >
               Register
             </Link>
           ) : null}
           {token ? (
-            <a id="logout" onClick={logout}>
-              Logout?
-            </a>
+            <Link
+              id="logout"
+              onClick={logout}
+              underline="hover"
+              color="darkred"
+              sx={{
+                borderRadius: 1,
+                boxShadow: 10,
+                padding: 1,
+                border: 2,
+                borderColor: "black",
+                ":hover": {
+                  bgcolor: "black",
+                  color: "white",
+                },
+              }}
+            >
+              Logout
+            </Link>
           ) : null}
         </div>
       </div>
     </div>
   );
 };
-
 export default Navbar;
