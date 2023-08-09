@@ -1,22 +1,9 @@
 import React, { useEffect } from "react";
-import { fetchRoutines, fetchRoutinesWithActivity } from "../api";
-// import { useNavigate } from "react-router-dom";
+import { fetchRoutines } from "../api";
 import LoadingModal from './LoadingModal';
-// import CommonButtons from "./Common/CommonButtons";
 
-const Routines = ({ token, routines, setRoutines, loading, setLoading, routinesWithActivity, setRoutinesWithActivity }) => {
-  // const navigate = useNavigate();
-  // const token = localStorage.getItem("token");
-  // const buttonStyles = {
-  //   fontSize: 12,
-  //   fontWeight: 700,
-  //   border: "1px solid white",
-  //   backgroundColor: "red",
-  //   color: "black",
-  //   "&:hover": {
-  //     backgroundColor: "blue",
-  //   },
-  // };
+const Routines = ({ routines, setRoutines, loading, setLoading }) => {
+
 
   useEffect(() => {
     async function getRoutines() {
@@ -37,16 +24,16 @@ const Routines = ({ token, routines, setRoutines, loading, setLoading, routinesW
   else {
     return (
       <div>
-        <h1>ROUTINES</h1>
+        <h1 id='routine-header'>ROUTINES</h1>
         {routines.map(routine =>
-          <div key={routine.id} value={routine}>
-            <h2>ROUTINE</h2>
+          <div id='routines' key={routine.id} value={routine}>
+            <h2 id='routine-title'>ROUTINE</h2>
             <h3>Creator: {routine.creatorName}</h3>
             <h3>Name: {routine.name}</h3>
             <h3>Goal: {routine.goal}</h3>
             <h3>Routine Activities</h3>
             <div>{routine.activities.map(activity =>
-              <div key={activity.id} value={activity}>
+              <div id='routine-activities' key={activity.id} value={activity}>
                 <h3>ACTIVITY</h3>
                 <h4>Activity Name: {activity.name}</h4>
                 <h4>Activity Description: {activity.description}</h4>

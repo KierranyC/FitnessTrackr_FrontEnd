@@ -12,6 +12,8 @@ import {
   updateRoutineActivity
 } from '../api';
 import LoadingModal from './LoadingModal';
+import CommonButtons from "./Common/CommonButtons";
+
 
 const MyRoutines = ({ currentUser, setCurrentUser, loading, setLoading, token, userRoutines, setUserRoutines }) => {
   const [showNewRoutineForm, setShowNewRoutineForm] = useState(false)
@@ -24,8 +26,21 @@ const MyRoutines = ({ currentUser, setCurrentUser, loading, setLoading, token, u
   const [activityList, setActivityList] = useState([])
   const [count, setCount] = useState('')
   const [duration, setDuration] = useState('')
-  const [showModal, setShowModal] = useState(false)
+  const [showModal1, setShowModal1] = useState(false)
+  const [showModal2, setShowModal2] = useState(false)
 
+
+  const buttonStyles = {
+    fontSize: 12,
+    fontWeight: 700,
+    color: "darkred",
+    border: "2px solid black",
+    backgroundColor: "white",
+    "&:hover": {
+      backgroundColor: "black",
+      color: "white",
+    },
+  };
 
   useEffect(() => {
     async function fetchMyData() {
@@ -136,29 +151,29 @@ const MyRoutines = ({ currentUser, setCurrentUser, loading, setLoading, token, u
   }
 
   const confirmDeleteRoutine = () => {
-    setShowModal(true);
+    setShowModal1(true);
   };
 
   const closeModal1 = () => {
-    setShowModal(false);
+    setShowModal1(false);
   };
 
   const handleDeleteRoutine = (event, routine) => {
     deleteUserRoutine(event, routine)
-    setShowModal(false);
+    setShowModal1(false);
   };
 
   const confirmDeleteActivity = () => {
-    setShowModal(true);
+    setShowModal2(true);
   };
 
   const closeModal2 = () => {
-    setShowModal(false);
+    setShowModal2(false);
   };
 
   const handleDeleteActivity = (event, activity) => {
     deleteActivity(event, activity)
-    setShowModal(false);
+    setShowModal2(false);
   };
 
   if (loading) {
@@ -169,41 +184,57 @@ const MyRoutines = ({ currentUser, setCurrentUser, loading, setLoading, token, u
 
     return (
       <>
-        <h1>My Routines</h1>
-        <h2>{currentUser}</h2>
-        <button onClick={toggleNewRoutineForm} className='new-routine-form-button'>{showNewRoutineForm ? 'Close Form' : 'Create New Routine'}</button>
-        {showNewRoutineForm && (
-          <form onSubmit={handleCreateNewRoutine} className='new-routine-form'>
-            <label className='new-routine-name'>
-              Name:
-              <input type='text' value={name} onChange={(event) => setName(event.target.value)} className='new-routine-name' />
-            </label>
-            <label className='new-routine-goal'>
-              Goal:
-              <input type='text' value={goal} onChange={(event) => setGoal(event.target.value)} className='new-routine-goal' />
-            </label>
-            <label className='new-routine-public'>
-              Public?
-              <input type='checkbox' checked={isPublic} onChange={(event) => setIsPublic(event.target.checked)} className='routine-public-input' />
-            </label>
-            <button className='new-routine-submit' type='submit'>Create Routine</button>
-          </form>
-        )}
+        <h1 id='user-routines-header'>My Routines</h1>
+        <h2 id='profile-username'>{currentUser}</h2>
+        <div id='routine-pop-out'>
+          <CommonButtons onClick={toggleNewRoutineForm}
+            size="small"
+            variant="contained"
+            sx={buttonStyles}
+            className='new-routine-form-button'>
+            {showNewRoutineForm ? 'Close Form' : 'Create New Routine'}
+          </CommonButtons>
+          {showNewRoutineForm && (
+            <form onSubmit={handleCreateNewRoutine} className='new-routine-form'>
+              <label className='new-routine-name'>
+                Name:
+                <input type='text' value={name} onChange={(event) => setName(event.target.value)} className='new-routine-name' />
+              </label>
+              <label className='new-routine-goal'>
+                Goal:
+                <input type='text' value={goal} onChange={(event) => setGoal(event.target.value)} className='new-routine-goal' />
+              </label>
+              <label className='new-routine-public'>
+                Public?
+                <input type='checkbox' checked={isPublic} onChange={(event) => setIsPublic(event.target.checked)} className='routine-public-input' />
+              </label>
+              <CommonButtons
+                size="small"
+                variant="contained"
+                sx={buttonStyles}
+                className='new-routine-submit' type='submit'>Create Routine</CommonButtons>
+            </form>
+          )}
+        </div>
         {userRoutines.map(routine =>
-          <div key={routine.id} value={routine}>
+          <div id='user-routines' key={routine.id} value={routine}>
             <h2>ROUTINE</h2>
             <div>Creator: {routine.creatorName}</div>
             <div>Name: {routine.name}</div>
             <div>Goal: {routine.goal}</div>
             <h3>Routine Activities</h3>
             {routine.activities.map(activity =>
-              <div key={activity.id} value={activity}>
+              <div id='user-routine-activities' key={activity.id} value={activity}>
                 <h3>ACTIVITY</h3>
                 <div>Name: {activity.name}</div>
                 <div>Description: {activity.description}</div>
                 <div>Duration: {activity.duration}</div>
                 <div>Count: {activity.count}</div>
-                <button onClick={toggleUpdateActivityForm} className='update-activity-form-button'>{showUpdateActivityForm ? 'Close Form' : 'Update Activity'}</button>
+                <CommonButtons
+                  size="small"
+                  variant="contained"
+                  sx={buttonStyles}
+                  onClick={toggleUpdateActivityForm} className='update-activity-form-button'>{showUpdateActivityForm ? 'Close Form' : 'Update Activity'}</CommonButtons>
                 {showUpdateActivityForm && (
                   <>
                     <label>
@@ -214,22 +245,37 @@ const MyRoutines = ({ currentUser, setCurrentUser, loading, setLoading, token, u
                       Duration:
                       <input type="number" value={duration} onChange={(event) => setDuration(event.target.value)} />
                     </label>
-                    <button type='button' className='update-activity' onClick={event => updateActivity(event, activity)}>Update Activity</button>
+                    <CommonButtons
+                      size="small"
+                      variant="contained"
+                      sx={buttonStyles}
+                      type='button' className='update-activity' onClick={event => updateActivity(event, activity)}>Update Activity</CommonButtons>
                   </>
                 )}
-                <button type='button' className='delete-activity-button' onClick={confirmDeleteActivity}>DELETE ACTIVITY</button>
+                <CommonButtons
+                  size="small"
+                  variant="contained"
+                  sx={buttonStyles}
+                  type='button' className='delete-activity-button' onClick={confirmDeleteActivity}>DELETE ACTIVITY</CommonButtons>
                 {
-                  showModal && (
+                  showModal2 && (
                     <div className="activity-modal-background">
                       <div className="activity-modal-container">
                         <h3>Are you sure you want to delete this activity?</h3>
-                        <button onClick={event => handleDeleteActivity(event, activity)} className="activity-modal-confirm">Yes</button>
-                        <button onClick={closeModal2} className="activity-modal-cancel">No</button>
+                        <CommonButtons
+                          size="small"
+                          variant="contained"
+                          sx={buttonStyles}
+                          onClick={event => handleDeleteActivity(event, activity)} className="activity-modal-confirm">Yes</CommonButtons>
+                        <CommonButtons
+                          size="small"
+                          variant="contained"
+                          sx={buttonStyles}
+                          onClick={closeModal2} className="activity-modal-cancel">No</CommonButtons>
                       </div>
                     </div>
                   )
                 }
-                {/* <button type='button' className='activity-delete' onClick={event => handleDeleteActivity(event, activity)}>DELETE ACTIVITY</button> */}
               </div>
             )}
             <select
@@ -251,9 +297,16 @@ const MyRoutines = ({ currentUser, setCurrentUser, loading, setLoading, token, u
               Duration:
               <input type="number" value={duration} onChange={(event) => setDuration(event.target.value)} />
             </label>
-            <button type='submit' onClick={(event) => attachActivity(event, routine, activity)} className='attach-activity-button'>Add Activity</button>
-            {/* <button type='button' className='routine-delete' onClick={event => handleDeleteRoutine(event, routine)}>DELETE ROUTINE</button> */}
-            <button onClick={toggleUpdateRoutineForm} className='routine-update-form'>{showUpdateRoutineForm ? 'Close Form' : 'Update Routine'}</button>
+            <CommonButtons
+              size="small"
+              variant="contained"
+              sx={buttonStyles}
+              type='submit' onClick={(event) => attachActivity(event, routine, activity)} className='attach-activity-button'>Add Activity</CommonButtons>
+            <CommonButtons
+              size="small"
+              variant="contained"
+              sx={buttonStyles}
+              onClick={toggleUpdateRoutineForm} className='routine-update-form'>{showUpdateRoutineForm ? 'Close Form' : 'Update Routine'}</CommonButtons>
             {showUpdateRoutineForm && (
               <form onSubmit={event => handleUpdateRoutine(event, routine)} className='update-routine-form'>
                 <label className='update-routine-name'>
@@ -268,17 +321,33 @@ const MyRoutines = ({ currentUser, setCurrentUser, loading, setLoading, token, u
                   Public?
                   <input type='checkbox' checked={isPublic} onChange={(event) => setIsPublic(event.target.checked)} className='routine-public-update' />
                 </label>
-                <button className='update-routine-submit' type='submit'>Update Routine</button>
+                <CommonButtons
+                  size="small"
+                  variant="contained"
+                  sx={buttonStyles}
+                  className='update-routine-submit' type='submit'>Update Routine</CommonButtons>
               </form>
             )}
-            <button type='button' className='delete-routine-button' onClick={confirmDeleteRoutine}>DELETE</button>
+            <CommonButtons
+              size="small"
+              variant="contained"
+              sx={buttonStyles}
+              type='button' className='delete-routine-button' onClick={confirmDeleteRoutine}>DELETE ROUTINE</CommonButtons>
             {
-              showModal && (
+              showModal1 && (
                 <div className="routine-modal-background">
                   <div className="routine-modal-container">
                     <h3>Are you sure you want to delete this routine?</h3>
-                    <button onClick={event => handleDeleteRoutine(event, routine)} className="routine-modal-confirm">Yes</button>
-                    <button onClick={closeModal1} className="routine-modal-cancel">No</button>
+                    <CommonButtons
+                      size="small"
+                      variant="contained"
+                      sx={buttonStyles}
+                      onClick={event => handleDeleteRoutine(event, routine)} className="routine-modal-confirm">Yes</CommonButtons>
+                    <CommonButtons
+                      size="small"
+                      variant="contained"
+                      sx={buttonStyles}
+                      onClick={closeModal1} className="routine-modal-cancel">No</CommonButtons>
                   </div>
                 </div>
               )

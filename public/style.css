@@ -8,6 +8,18 @@ body {
   display: grid;
 }
 
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+#appDIV {
+  height: 100%;
+  padding: 0px 20px;
+}
+
 #mainNav {
   background-color: rgb(198, 198, 198);
   display: grid;
@@ -42,7 +54,6 @@ body {
 
 #activities {
   backdrop-filter: blur(5px);
-  /* background: rgb(25, 25, 25); */
   display: grid;
   box-shadow: 3px 3px 10px -2px black;
   border: 2px solid black;
@@ -68,4 +79,98 @@ body {
   color: black;
   font-size: 1.2rem;
   margin-top: 1rem;
+}
+
+#routine-header {
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+}
+
+#routines {
+  backdrop-filter: blur(5px);
+  display: grid;
+  box-shadow: 3px 3px 10px -2px black;
+  border: 2px solid black;
+  max-width: 800px;
+  font-size: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+
+#routine-title {
+  color: darkblue;
+}
+
+#routine-activities {
+  backdrop-filter: blur(5px);
+  display: grid;
+  box-shadow: 3px 3px 10px -2px black;
+  border: 2px solid black;
+  max-width: 800px;
+  font-size: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+
+#user-routines {
+  backdrop-filter: blur(5px);
+  display: grid;
+  box-shadow: 3px 3px 10px -2px black;
+  border: 2px solid black;
+  max-width: 800px;
+  font-size: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+
+#user-routine-activities {
+  backdrop-filter: blur(5px);
+  box-shadow: 3px 3px 10px -2px black;
+  border: 2px solid black;
+  max-width: 800px;
+  font-size: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+
+#routine-pop-out {
+  padding: 25px;
+  display: flex;
+  justify-content: center;
+}
+
+#user-routines-header {
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+}
+
+#profile-username {
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+}
+
+.footer {
+  background-color: rgb(198, 198, 198);
+  display: flex;
+  align-items: flex-end;
+  padding: 10px;
+  justify-content: space-between;
+}
+
+.developers {
+  padding: 5px;
 }

@@ -1,12 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { registerUser } from "../api";
 import { Link, useNavigate } from "react-router-dom";
+import CommonButtons from "./Common/CommonButtons";
+
 const Register = ({ setToken }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+
+  const buttonStyles = {
+    fontSize: 12,
+    fontWeight: 700,
+    color: "darkred",
+    border: "2px solid black",
+    backgroundColor: "white",
+    "&:hover": {
+      backgroundColor: "black",
+      color: "white",
+    },
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!username || !password) {
@@ -69,12 +84,20 @@ const Register = ({ setToken }) => {
           />
         </label>
         <br />
-        <button type="submit" className="register-account-button">
+        <CommonButtons
+          size="small"
+          variant="contained"
+          sx={buttonStyles}
+          type="submit" className="register-account-button">
           Register
-        </button>
+        </CommonButtons>
       </form>
       <Link to="/login" className="redirect-login">
-        <button>Already have an account? Log in!</button>
+        <CommonButtons
+          size="small"
+          variant="contained"
+          sx={buttonStyles}>
+          Already have an account? Log in!</CommonButtons>
       </Link>
       <div>{errorMessage}</div>
     </div>
