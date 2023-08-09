@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchUserRoutines, fetchUserData, createNewRoutine, fetchActivities, attachActivityToRoutine, deleteRoutine } from '../api';
+import { fetchUserRoutines, fetchUserData, createNewRoutine, fetchActivities, attachActivityToRoutine, deleteRoutine, deleteRoutineActivity } from '../api';
 import LoadingModal from './LoadingModal';
 
 const MyRoutines = ({ currentUser, setCurrentUser, loading, setLoading, token, userRoutines, setUserRoutines }) => {
@@ -35,13 +35,22 @@ const MyRoutines = ({ currentUser, setCurrentUser, loading, setLoading, token, u
     await attachActivityToRoutine(token, routine.id, activity, count, duration)
   }
 
-  const handleDelete = async (event, routine) => {
+  const handleDeleteRoutine = async (event, routine) => {
     event.preventDefault()
     await deleteRoutine(token, routine.id)
     const updatedRoutines = userRoutines.filter(userRoutine =>
       userRoutine.id !== routine.id)
     setUserRoutines(updatedRoutines)
   }
+
+  const handleDeleteActivity = async (event, activity) => {
+    event.preventDefault()
+    await deleteRoutineActivity(token, activity.routineActivityId)
+    const updatedRoutines = userRoutines
+    setUserRoutines(userRoutines)
+  }
+
+
 
   const toggleNewRoutineForm = () => {
     setShowNewRoutineForm(!showNewRoutineForm)
@@ -89,9 +98,9 @@ const MyRoutines = ({ currentUser, setCurrentUser, loading, setLoading, token, u
                 <div>Description: {activity.description}</div>
                 <div>Duration: {activity.duration}</div>
                 <div>Count: {activity.count}</div>
+                <button type='button' className='activity-delete' onClick={event => handleDeleteActivity(event, activity)}>DELETE ACTIVITY</button>
               </div>
             )}
-
             <select
               name="activity"
               id="select-activity"
@@ -111,7 +120,7 @@ const MyRoutines = ({ currentUser, setCurrentUser, loading, setLoading, token, u
               <input type="number" value={duration} onChange={(event) => setDuration(event.target.value)} />
             </label>
             <button type='submit' onClick={(event) => attachActivity(event, routine)} className='attach-activity-button'>Add Activity</button>
-            <button type='button' className='routine-delete' onClick={event => handleDelete(event, routine)}>DELETE</button>
+            <button type='button' className='routine-delete' onClick={event => handleDeleteRoutine(event, routine)}>DELETE ROUTINE</button>
           </div>
         )}
       </>

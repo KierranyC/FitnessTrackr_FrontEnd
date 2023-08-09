@@ -341,22 +341,20 @@ export const updateRoutineActivity = async (
 export const deleteRoutineActivity = async (token, routineActivityId) => {
   try {
     const response = await fetch(
-      `${BASE_URL}/routines_activities/${routineActivityId}`,
+      `${BASE_URL}/routine_activities/${routineActivityId}`,
       {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
         },
       }
     );
-    if (response.ok) {
-      const result = await response.json();
-      console.log(result);
-      return result.data;
-    } else {
-      throw new Error("Failed to delete routine activity");
-    }
+
+    const result = await response.json();
+    console.log(result);
+    return result;
+
   } catch (error) {
     console.error(error);
   }
